@@ -12,6 +12,6 @@ namespace DigitalForSchool.Data
         public string LastName { get; set; }
         public string Patronymic { get; set; }
         public ICollection<Subject> Subjects { get; set; } = new List<Subject>();
-        
+        public ICollection<Rank> Ranks { get; set; } = new List<Rank>();
     }
 }

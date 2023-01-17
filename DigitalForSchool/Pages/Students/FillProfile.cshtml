@@ -1,0 +1,54 @@
+﻿@page "{Id}"
+@model DigitalForSchool.Pages.Students.FillProfileModel
+@{
+    ViewData["Title"] = "Заполнение профиля";
+}
+<h2>@ViewData["Title"]</h2>
+
+<form method="post" class="form-horizontal">
+    <div asp-validation-summary="ModelOnly"></div>
+    <input type="hidden" asp-for="@Model.Input.Id"/>
+    <div class="form-group">
+        <label asp-for="Input.FirstName"></label>
+        <div class="col-md-10">
+            <input asp-for="Input.FirstName" class="form-control" />
+            <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Input.LastName"></label>
+        <div class="col-md-10">
+            <input asp-for="Input.LastName" class="form-control"/>
+            <span asp-validation-for="Input.LastName"></span>
+        </div>
+    </div>
+    <div>
+        <label asp-for="Input.Patronymic"></label>
+        <div class="col-md-10">
+            <input asp-for="Input.Patronymic" class="form-control" />
+            <span asp-validation-for="Input.Patronymic" class="text-danger"></span>
+        </div>
+    </div>
+    <div>
+        <label asp-for="Input.Login"></label>
+        <div class="col-md-10">
+            <input asp-for="Input.Login" class="form-control"/>
+            <span asp-validation-for="Input.Login" class="text-danger"></span>
+        </div>
+    </div>
+    <div>
+        <label asp-for="Input.Password"></label>
+        <div class="col-md-10">
+            <input asp-for="Input.Password" class="form-control" />
+            <span asp-validation-for="Input.Password" class="text-danger"></span>
+        </div>
+    </div>
+    <hr/>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10" >
+            <button type="submit" class="btn btn-success">Обновить данные</button>
+            <a class="btn btn-danger" asp-page="/Index">Отмена</a>
+        </div>
+    </div>
+</form>

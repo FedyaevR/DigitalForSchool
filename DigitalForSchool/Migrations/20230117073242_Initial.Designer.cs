@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DigitalForSchool.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230116220608_Initial")]
+    [Migration("20230117073242_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -112,10 +112,17 @@ namespace DigitalForSchool.Migrations
                     b.Property<int>("Score")
                         .HasColumnType("int");
 
-                    b.Property<string>("SubjectName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("StudentId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SubjectId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("StudentId");
+
+                    b.HasIndex("SubjectId");
 
                     b.ToTable("Ranks");
                 });
@@ -142,12 +149,7 @@ namespace DigitalForSchool.Migrations
                     b.Property<string>("Patronymic")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("RankId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("RankId");
 
                     b.ToTable("Students");
                 });
@@ -180,21 +182,6 @@ namespace DigitalForSchool.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tests");
-                });
-
-            modelBuilder.Entity("RankSubject", b =>
-                {
-                    b.Property<int>("RankId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SubjectsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("RankId", "SubjectsId");
-
-                    b.HasIndex("SubjectsId");
-
-                    b.ToTable("RankSubject");
                 });
 
             modelBuilder.Entity("StudentSubject", b =>
@@ -241,26 +228,15 @@ namespace DigitalForSchool.Migrations
                         .HasForeignKey("TestId");
                 });
 
-            modelBuilder.Entity("DigitalForSchool.Data.Student", b =>
+            modelBuilder.Entity("DigitalForSchool.Data.Rank", b =>
                 {
-                    b.HasOne("DigitalForSchool.Data.Rank", null)
-                        .WithMany("Students")
-                        .HasForeignKey("RankId");
-                });
-
-            modelBuilder.Entity("RankSubject", b =>
-                {
-                    b.HasOne("DigitalForSchool.Data.Rank", null)
-                        .WithMany()
-                        .HasForeignKey("RankId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("DigitalForSchool.Data.Student", null)
+                        .WithMany("Ranks")
+                        .HasForeignKey("StudentId");
 
                     b.HasOne("DigitalForSchool.Data.Subject", null)
-                        .WithMany()
-                        .HasForeignKey("SubjectsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Rank")
+                        .HasForeignKey("SubjectId");
                 });
 
             modelBuilder.Entity("StudentSubject", b =>
@@ -283,14 +259,16 @@ namespace DigitalForSchool.Migrations
                     b.Navigation("Answers");
                 });
 
-            modelBuilder.Entity("DigitalForSchool.Data.Rank", b =>
+            modelBuilder.Entity("DigitalForSchool.Data.Student", b =>
                 {
-                    b.Navigation("Students");
+                    b.Navigation("Ranks");
                 });
 
             modelBuilder.Entity("DigitalForSchool.Data.Subject", b =>
                 {
                     b.Navigation("Lessons");
+
+                    b.Navigation("Rank");
                 });
 
             modelBuilder.Entity("DigitalForSchool.Data.Test", b =>

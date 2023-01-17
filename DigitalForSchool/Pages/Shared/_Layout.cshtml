@@ -26,11 +26,14 @@
                         </li>
                     </ul>
                 </div>
+                <div class="nav-item px-3 ms-auto">
+                    <a asp-page="/Students/FillProfile" asp-route-Id="1" class="btn btn-success">Заполнить профиль</a>
+                </div>
             </div>
         </nav>
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-3 text-center">
             @RenderBody()
         </main>
     </div>

@@ -6,12 +6,12 @@ namespace DigitalForSchool.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-        DbSet<Lesson> Lessons { get; set; }
-        DbSet<Subject> Subjects { get; set; }
-        DbSet<Student> Students { get; set; }
-        DbSet<Rank> Ranks { get; set; }
-        DbSet<Test> Tests { get; set; }
-        DbSet<Question> Questions { get; set; }
-        DbSet<Answer> Answers { get; set; }
+        public DbSet<Lesson> Lessons { get; set; }
+        public DbSet<Subject> Subjects { get; set; }
+        public DbSet<Student> Students { get; set; }
+        public DbSet<Rank> Ranks { get; set; }
+        public DbSet<Test> Tests { get; set; }
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<Answer> Answers { get; set; }
     }
 }

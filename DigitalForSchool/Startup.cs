@@ -25,6 +25,8 @@ namespace DigitalForSchool
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMemoryCache();
+            services.AddSession();
             services.AddRazorPages();
             services.AddDbContext<AppDbContext>(options => 
             options.UseSqlServer(Configuration.GetConnectionString("DebugConnection")));
@@ -57,6 +59,7 @@ namespace DigitalForSchool
             {
                 endpoints.MapRazorPages();
             });
+            app.UseCookiePolicy();
         }
     }
 }

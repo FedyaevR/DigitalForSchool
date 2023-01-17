@@ -7,17 +7,20 @@ namespace DigitalForSchool.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Ranks",
+                name: "Students",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Score = table.Column<int>(type: "int", nullable: false),
-                    SubjectName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Login = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Patronymic = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Ranks", x => x.Id);
+                    table.PrimaryKey("PK_Students", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -47,47 +50,50 @@ namespace DigitalForSchool.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Students",
+                name: "Ranks",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Login = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Patronymic = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RankId = table.Column<int>(type: "int", nullable: true)
+                    Score = table.Column<int>(type: "int", nullable: false),
+                    StudentId = table.Column<int>(type: "int", nullable: true),
+                    SubjectId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Students", x => x.Id);
+                    table.PrimaryKey("PK_Ranks", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Students_Ranks_RankId",
-                        column: x => x.RankId,
-                        principalTable: "Ranks",
+                        name: "FK_Ranks_Students_StudentId",
+                        column: x => x.StudentId,
+                        principalTable: "Students",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Ranks_Subjects_SubjectId",
+                        column: x => x.SubjectId,
+                        principalTable: "Subjects",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "RankSubject",
+                name: "StudentSubject",
                 columns: table => new
                 {
-                    RankId = table.Column<int>(type: "int", nullable: false),
+                    StudentsId = table.Column<int>(type: "int", nullable: false),
                     SubjectsId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RankSubject", x => new { x.RankId, x.SubjectsId });
+                    table.PrimaryKey("PK_StudentSubject", x => new { x.StudentsId, x.SubjectsId });
                     table.ForeignKey(
-                        name: "FK_RankSubject_Ranks_RankId",
-                        column: x => x.RankId,
-                        principalTable: "Ranks",
+                        name: "FK_StudentSubject_Students_StudentsId",
+                        column: x => x.StudentsId,
+                        principalTable: "Students",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_RankSubject_Subjects_SubjectsId",
+                        name: "FK_StudentSubject_Subjects_SubjectsId",
                         column: x => x.SubjectsId,
                         principalTable: "Subjects",
                         principalColumn: "Id",
@@ -146,30 +152,6 @@ namespace DigitalForSchool.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "StudentSubject",
-                columns: table => new
-                {
-                    StudentsId = table.Column<int>(type: "int", nullable: false),
-                    SubjectsId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_StudentSubject", x => new { x.StudentsId, x.SubjectsId });
-                    table.ForeignKey(
-                        name: "FK_StudentSubject_Students_StudentsId",
-                        column: x => x.StudentsId,
-                        principalTable: "Students",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_StudentSubject_Subjects_SubjectsId",
-                        column: x => x.SubjectsId,
-                        principalTable: "Subjects",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Answers",
                 columns: table => new
                 {
@@ -212,14 +194,14 @@ namespace DigitalForSchool.Migrations
                 column: "TestId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RankSubject_SubjectsId",
-                table: "RankSubject",
-                column: "SubjectsId");
+                name: "IX_Ranks_StudentId",
+                table: "Ranks",
+                column: "StudentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Students_RankId",
-                table: "Students",
-                column: "RankId");
+                name: "IX_Ranks_SubjectId",
+                table: "Ranks",
+                column: "SubjectId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StudentSubject_SubjectsId",
@@ -236,7 +218,7 @@ namespace DigitalForSchool.Migrations
                 name: "Lessons");
 
             migrationBuilder.DropTable(
-                name: "RankSubject");
+                name: "Ranks");
 
             migrationBuilder.DropTable(
                 name: "StudentSubject");
@@ -252,9 +234,6 @@ namespace DigitalForSchool.Migrations
 
             migrationBuilder.DropTable(
                 name: "Tests");
-
-            migrationBuilder.DropTable(
-                name: "Ranks");
         }
     }
 }
