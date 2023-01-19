@@ -17,6 +17,7 @@ namespace DigitalForSchool.Models
                 FirstName = FirstName,
                 LastName = LastName,
                 Patronymic = Patronymic,
+                SchoolName = SchoolName,
                 Login = Login,
                 Password = Password,
                 Subjects = Subjects.Select(s => s.ToSubject()).ToList(),

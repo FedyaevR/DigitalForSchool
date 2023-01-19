@@ -1,0 +1,20 @@
+﻿@page
+@model DigitalForSchool.Pages.Admin.Students.NewStudentsInfoModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Новые студенты";
+}
+<div class="col-4 float-right">
+    <a asp-page="../AdminPanel" >Вернуться в панель администратора</a>
+</div>
+@for (int i = 0; i < Model.Input.Count; i++)
+{
+        var item = Model.Input[i];
+        <div>
+            <p>Ученик #@(i + 1)</p>
+            <p>@Model.Input[i].FirstName @Model.Input[i].LastName</p>
+            <p>Login: @item.Login</p>
+            <p>Password: @item.Password</p>
+        </div>
+        <br>
+}

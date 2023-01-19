@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -57,6 +58,7 @@ namespace DigitalForSchool.Services
         {
             return  _context.Students.FirstOrDefault(s => s.Id == id);
         }
+        //TODO: Delete
         public async void EditStudent(Student student)
         {
             var stud = _context.Students.FirstOrDefault(s => s.Id == student.Id);
@@ -66,7 +68,11 @@ namespace DigitalForSchool.Services
             stud.Login = student.Login;
             stud.Password = student.Password;
 
-             _context.SaveChanges();
+             await _context.SaveChangesAsync();
+        }
+        public List<Student> GetAllStudents()
+        {
+            return  _context.Students.ToList();
         }
     }
 }

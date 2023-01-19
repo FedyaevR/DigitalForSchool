@@ -1,0 +1,47 @@
+﻿@page
+@model DigitalForSchool.Pages.Admin.Students.AllStudentsInfoModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Все ученики";
+}
+<div class="col-4 float-right">
+    <a asp-page="../AdminPanel">Вернуться в панель администратора</a>
+</div>
+<table class="table table-striped" id="students">
+    <thead>
+        <tr>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Отчество</th>
+            <th>Учебное учреждение</th>
+            <th>Логин</th>
+            <th>Пароль</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.Input.Count; i++)
+        {
+            var student = Model.Input[i];
+                <tr>
+                    <td>
+                        <p>Имя: @Model.Input[i].FirstName</p>
+                    </td>
+                    <td>
+                        <p>Фамилия: @Model.Input[i].LastName</p>
+                    </td>
+                    <td>
+                        <p>Отчество: @Model.Input[i].Patronymic</p>
+                    </td>
+                    <td>
+                        <p>Учебное учреждение: @Model.Input[i].SchoolName</p>
+                    </td>
+                    <td>
+                        <p>Логин: @Model.Input[i].Login</p>
+                    </td>
+                    <td>
+                        <p>Пароль: @Model.Input[i].Password</p>
+                    </td>
+                </tr>               
+        }
+    </tbody>
+</table>
