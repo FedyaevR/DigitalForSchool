@@ -5,16 +5,16 @@ namespace DigitalForSchool.Models
 {
     public class CreateLessonCommand
     {
-        [Required, StringLength(100)]
+        [Required(ErrorMessage = "Укажите навзание урока"), StringLength(100)]
         public string Name { get; set; }
         public string Description { get; set; }
-        [Required, StringLength(100)]
+        [Required(ErrorMessage = "Укажите название видео"), StringLength(100)]
         public string VideoName { get; set; }
         [Required, Url(ErrorMessage = "Невозможно сохранить ссылку"), DataType("string")]
         public string VideoURL { get; set; }
 
         public string Presentation { get; set; }
-        public CreateTestCommand Test { get; set; }
+        public Test Test { get; set; }
 
         public Lesson ToLesson()
         {
@@ -24,8 +24,7 @@ namespace DigitalForSchool.Models
                 Description = Description,
                 VideoName = VideoName,
                 VideoURL = VideoURL,
-                Presentation = Presentation,
-                Test = Test.ToTest()
+                Presentation = Presentation
             };
         }
     }

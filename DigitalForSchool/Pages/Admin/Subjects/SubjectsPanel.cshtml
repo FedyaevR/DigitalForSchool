@@ -1,0 +1,57 @@
+﻿@page
+@model DigitalForSchool.Pages.Admin.Subjects.SubjectsPanelModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Панель управления учебными предметами";
+}
+
+<div class="mt-3">
+    <a asp-page="CreateSubject"  class="btn btn-primary">Добавить новый предмет</a>
+</div>
+
+<table class="table table-striped form-group" id="subjects">
+    <thead>
+        <tr>
+            <th>Название предмета</th>
+            <th>Кол-во уроков</th>
+            <th>Уроки</th>
+            <th>Тесты</th>
+            <th>Изменить предмет</th>
+            <th>Удалить предмет</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.Subjects.Count; i++)
+        {
+            <tr>
+                <td>
+                    <p>@Model.Subjects[i].Name</p>
+                </td>
+                <td>
+                    <p>@Model.Subjects[i].Lessons.Count</p>
+                </td>
+                <td>
+                    <select class="form-select"  asp-for="@Model.Subjects[i].Lessons" asp-items="@Model.Subjects[i].Lessons.
+                                                                                    Select(l => new SelectListItem{ Value = l.Id.ToString(), Text = l.Name})">
+                    </select>
+                </td>
+                <td>
+                    <a asp-page="Tests/AddTest" asp-route-id="@Model.Subjects[i].Lessons[0].Id" id="addTest" class="btn btn-secondary">Добавить тест</a>
+                    <a asp-page="Tests/EditTest" asp-route-id="@Model.Subjects[i].Lessons[0].Id" id="editTest" class="btn btn-secondary">Изменить тест</a>
+                    <a asp-page="Tests/RemoveTest" asp-route-id="@Model.Subjects[i].Lessons[0].Id" id="removeTest" class="btn btn-secondary">Удалить тест</a>
+
+                </td>
+                <td>
+                    <a asp-page="#">Редактировать предмет</a>
+                </td>
+                <td>
+                    <a asp-page="#">Удалить предмет</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts{
+   <script src="~/js/subPanelTestShow.js"></script>
+}
