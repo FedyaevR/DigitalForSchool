@@ -24,7 +24,7 @@ namespace DigitalForSchool.Pages.Admin.Subjects.Tests
         }
         public void OnGet(int id)
         {
-            if(_service.GetLesson(id).TestId != 0)
+            if(_service.GetLesson(id).TestId > 0)
             {
                 Test = null;
             }
