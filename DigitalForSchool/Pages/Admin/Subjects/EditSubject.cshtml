@@ -1,0 +1,76 @@
+﻿@page "{id}"
+@model DigitalForSchool.Pages.Admin.Subjects.EditSubjectModel
+@{
+    ViewData["Title"] = "Редактировать учебный предмет";
+    Layout = "_Layout";
+}
+
+<form method="post" class="form-horizontal" enctype="multipart/form-data">
+    <input type="hidden" asp-for="@Model.Input.Id"/>
+    <div asp-validation-summary="ModelOnly"></div>
+
+    <div class="form-group">
+        <label asp-for="Input.Name">Название предмета</label>
+        <div class="col-md-10">
+            <input asp-for="Input.Name" class="form-control" />
+            <span asp-validation-for="Input.Name" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <table class="table table-striped" id="lessons">
+            <thead>
+                <tr>
+                    <th>Название урока</th>
+                    <th>Описание</th>
+                    <th>Ссылка на видео</th>
+                    <th>Название видео</th>
+                    <th>Презентация(Заглушка)</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Input.Lessons.Count; i++)
+                {
+                    var lesson = Model.Input.Lessons[i];
+                        <tr>
+                            <td>
+                                <input asp-for="Input.Lessons[i].Name" />
+                                <span asp-validation-for="Input.Lessons[i].Name" class="text-danger"></span>
+                            </td>
+                            <td>
+                                <textarea asp-for="Input.Lessons[i].Description"></textarea>
+                                <span asp-validation-for="Input.Lessons[i].Description" class="text-danger"></span>
+                            </td>
+                            <td>
+                                @*<input type="url" name="@Model.Input.Lessons[i].VideoURL" value="@Model.Input.Lessons[i].VideoURL" id="@Model.Input.Lessons[i].VideoURL" /> *@
+                                <input asp-for="@Model.Input.Lessons[i].VideoURL" />
+                                <span asp-validation-for="Input.Lessons[i].VideoURL" class="text-danger"></span>
+                            </td>
+                             <td>
+                                <input asp-for="Input.Lessons[i].VideoName"/>
+                                <span asp-validation-for="Input.Lessons[i].VideoName" class="text-danger"></span>
+                            </td>
+                            <td>
+                                <input  asp-for="Input.Lessons[i].Presentation"/>
+                                <span asp-validation-for="Input.Lessons[i].Presentation" class="text-danger"></span>
+                            </td>
+                            <td>
+                                <button class="btn btn-secondary remove">Удалить</button>
+                            </td>
+                        </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="button" class="btn btn-success" id="addLesson">Добавить урок</button>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+        <script src="~/js/addLesson.js"></script>
+}

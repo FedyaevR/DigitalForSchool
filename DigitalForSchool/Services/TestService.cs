@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace DigitalForSchool.Services
 {
@@ -31,6 +32,21 @@ namespace DigitalForSchool.Services
             _context.Lessons.FirstOrDefault(l => l.Id == lessonId).TestId = test.Id;
             await _context.SaveChangesAsync();
             return test.Id;
+        }
+        public async Task<bool> EditTest(Test test)
+        {
+            var testSource = _context.Tests.Include(t => t.Questions).ThenInclude(q => q.Answers).Where(t => t.Id == test.Id).FirstOrDefault();
+            testSource.Name = test.Name;
+            testSource.Questions = test.Questions;
+            await _context.SaveChangesAsync();
+            return true;
+        }
+        public Test GetTest(int? id)
+        {
+            
+             var res = _context.Tests.Include(t => t.Questions).ThenInclude(q => q.Answers).Where(t => t.Id == id);
+
+            return res.FirstOrDefault();
         }
     }
 }

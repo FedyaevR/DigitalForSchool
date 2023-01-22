@@ -1,0 +1,45 @@
+﻿@page "{id?}"
+@model DigitalForSchool.Pages.User.SubjectSelectModel
+@{
+    ViewData["Title"] = "Выбор предмета";
+    Layout = "_Layout";
+}
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+   Выберите предмет
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+     @foreach (var item in Model.Subjects)
+     {
+            <a class="dropdown-item" href="/User/SubjectSelect/@item.Id">@item.Name</a> 
+     }
+  </div>
+</div>
+<div class="form-group">
+    <table class="table table-striped" id="lessons">
+        <thead>
+            <tr>
+                <th>Название урока</th>
+                <th>Описание</th>
+                <th></th>
+            </tr>
+            @if (Model.Id != 0)
+            {
+                   
+                @foreach (var item in Model.Subjects.FirstOrDefault(s => s.Id == Model.Id).Lessons)
+                {
+                    <tr>
+                        <td class="align-middle">@item.Name</td>
+                        <td class="align-middle">@item.Description</td>
+                        <td><a asp-page="Lesson" asp-route-id="@item.Id" class="btn btn-primary">Приступить к уроку</a></td>
+                        @*<td><a asp-page="Lessons/LessonTest" asp-route-lessonId="@item.Id" class="btn btn-primary">Go to test</a></td>*@
+                        @*<td><a asp-page="" asp-route-id="@item.Id" class="btn btn-primary">Go to Presentation</a></td>*@
+                    </tr>
+                }
+            }
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+</div>

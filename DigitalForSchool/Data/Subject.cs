@@ -8,7 +8,7 @@ namespace DigitalForSchool.Data
         public int Id { get; set; }
         public string Name { get; set; }
         public ICollection<Student> Students { get; set; } = new List<Student>();
-        public ICollection<Lesson> Lessons { get; set; } = new List<Lesson>();
+        public IList<Lesson> Lessons { get; set; } = new List<Lesson>();
         public ICollection<Rank> Rank { get; set; } 
     }
 }

@@ -14,7 +14,6 @@ namespace DigitalForSchool.Data
         public string VideoName { get; set; }
         [Required(ErrorMessage = "Укажите ссылку на видео")]
         public string VideoURL { get; set; }
-
         public string Presentation { get; set; }
         public int? TestId { get; set; }
         public Test Test { get; set; }

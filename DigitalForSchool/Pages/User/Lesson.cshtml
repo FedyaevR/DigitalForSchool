@@ -1,0 +1,17 @@
+﻿@page "{id}"
+@model DigitalForSchool.Pages.User.LessonModel
+@{
+    ViewData["Title"] = "Урок";
+    Layout = "_Layout";
+}
+
+<h1>@Model.Lesson.Name</h1>
+<div class="iframe_video">
+    <iframe src="@Model.Lesson.VideoURL" title="YouTube video" width="80%" height="515" allowfullscreen></iframe>
+</div>
+<div class="w-auto h-100">
+    <p>@Model.Lesson.Description</p>
+</div>
+<div class="row">
+    <a asp-page="#" class="btn btn-primary">Тест</a><a asp-page="#" class="btn btn-primary">Презентация</a>
+</div>

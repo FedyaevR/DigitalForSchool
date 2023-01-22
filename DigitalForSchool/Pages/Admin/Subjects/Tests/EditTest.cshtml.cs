@@ -1,37 +1,29 @@
 using DigitalForSchool.Data;
-using DigitalForSchool.Models;
 using DigitalForSchool.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace DigitalForSchool.Pages.Admin.Subjects.Tests
 {
-    public class AddTestModel : PageModel
+    public class EditTestModel : PageModel
     {
         [BindProperty]
         public Test Test { get; set; }
         [BindProperty]
         public int Id { get; set; }
         private readonly TestService _service;
-
-        public AddTestModel(TestService service)
+        public EditTestModel(TestService service)
         {
             _service = service;
         }
         public void OnGet(int id)
         {
-            if(_service.GetLesson(id).TestId > 0)
+            var testId = _service.GetLesson(id).TestId;
+            if ( testId > 0)
             {
-                Id = id;
-                Test = null;
-            }
-            else
-            {
-                Test = new Test();
+                Test = _service.GetTest(testId);
             }
         }
         public async Task<IActionResult> OnPost()
@@ -49,11 +41,11 @@ namespace DigitalForSchool.Pages.Admin.Subjects.Tests
                             Test.Questions[questIndex].Answers[answerIndex].IsRight = true;
                         }
                     }
-                    
-                    var id = await _service.CreateTest(Test, Id);
-                    if (id == -1)
+
+                    var res = await _service.EditTest(Test);
+                    if (res == false)
                     {
-                        ModelState.AddModelError(string.Empty, "Test already have on platform");
+                        ModelState.AddModelError(string.Empty, "Теста нет на платформе");
                         return Page();
                     }
 
@@ -63,7 +55,7 @@ namespace DigitalForSchool.Pages.Admin.Subjects.Tests
             catch (System.Exception)
             {
 
-                ModelState.AddModelError(string.Empty, "An error occured a create new subject");
+                ModelState.AddModelError(string.Empty, "Возникла ошибка");
             }
             return Page();
         }

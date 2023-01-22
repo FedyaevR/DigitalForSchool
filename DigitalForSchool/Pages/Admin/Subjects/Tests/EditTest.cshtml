@@ -1,0 +1,70 @@
+﻿@page "{id}"
+@model DigitalForSchool.Pages.Admin.Subjects.Tests.EditTestModel
+@{
+    ViewData["Title"] = "Редактировать тест";
+    Layout = "_Layout";
+}
+
+<h2>@ViewData["Title"]</h2>
+<form method="post" class="form-horizontal">
+    <input type="hidden" asp-for="Test.Id" />
+    <button type="submit" class="btn btn-primary">Сохранить тест</button>
+    <div asp-validation-summary="ModelOnly"></div>
+    <div class="form-group d-flex flex-column align-items-center">
+        <label asp-for="Test.Name">Название теста</label>
+        <div class="col-md-3">
+            <input asp-for="Test.Name" class="form-control" />
+            <span asp-validation-for="Test.Name" class="text-danger"></span>
+        </div>
+        <div>
+            <button type="button" class="btn btn-secondary" id="addQuestion">Добавить вопрос</button>
+        </div>
+    </div>
+    <div id="Questions" class="mt-2 row d-flex flex-column align-items-center ">
+        @for (int i = 0; i < Model.Test.Questions.Count; i++)
+        {
+            <div class="row question d-flex flex-column align-items-center" id="@i">
+                <div class="form-group " id="form @i">
+                    <label asp-for="Test.Questions[i].Name">Вопрос</label>
+                    <div class="input-group" id="inp @i">
+                        <textarea asp-for="Test.Questions[i].Name" class="form-control"></textarea>
+                        <button type="button" class="btn btn-secondary remove">Удалить</button>
+                        <span asp-validation-for="Test.Questions[i].Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="answers">
+                    @for (int j = 0; j<  Model.Test.Questions[i].Answers.Count; j++)
+                    {
+                        
+                        <div class="row " id="AnswQuest @i">
+                            <div class="form-group answer d-flex flex-column align-items-center">
+                                <div class="input-group" id="inp@(i)">
+                                    @if(Model.Test.Questions[i].Answers[j].IsRight == true)
+                                    {
+                                        <input type="radio" value="@j" name="@i" checked />
+                                    }
+                                    else 
+                                    {
+                                        <input type="radio" value="@j" name="@i"/>
+                                    }
+                                    <input name="Test.Questions[@i].Answers[@j].Text" id="Test.Questions[@i].Answers[@j].Text" value="@Model.Test.Questions[i].Answers[j].Text"  class="form-control" />
+                                    <button type="button" class="btn btn-secondary remove">Удалить</button>
+                                    <span asp-validation-for="@Model.Test.Questions[i].Answers[j].Text" class="text-danger"></span>
+                                </div>
+                                @if (Model.Test.Questions[i].Answers[j] == Model.Test.Questions[i].Answers.Last())
+                                {
+                                    <button type="button" class="btn btn-secondary mt-2" id="addAnswer">Добавить ответ</button>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</form>
+
+@section Scripts
+{
+    <script src="~/js/addQuestions.js"></script>
+}

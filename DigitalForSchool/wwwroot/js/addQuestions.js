@@ -5,13 +5,13 @@ $("#addQuestion").click(function () {
     var template1 =
         '<div class="row question d-flex flex-column align-items-center" id="' + questionIndex + '">' +
         '<div class="form-group" id="form' + questionIndex + '">' +
-        '<label name="Test.Questions[' + questionIndex + '].Name" id="Test.Questions[' + questionIndex + '].Name">Question name</label>' +
+        '<label name="Test.Questions[' + questionIndex + '].Name" id="Test.Questions[' + questionIndex + '].Name">Введите вопрос</label>' +
         '<div class="input-group" id="inp' + questionIndex + '" >' +
         '<textarea name="Test.Questions[' + questionIndex + '].Name" id="Test.Questions[' + questionIndex + '].Name" class= "form-control"></textarea>' +
-        '<button type="button" class="btn btn-secondary remove">Remove</button>' +
+        '<button type="button" class="btn btn-secondary remove">Удалить</button>' +
         '<span asp-validation-for= "Test.Questions[' + questionIndex + '].Name" class="text-danger"></span>' +
         '</div>' +
-        '<button type="button" class="btn btn-secondary mt-2" id="addAnswer">Add answer</button>' +
+        '<button type="button" class="btn btn-secondary mt-2" id="addAnswer">Добавить ответ</button>' +
         '</div>' +
         '</div>';
     questions.append(template1);
@@ -29,15 +29,15 @@ questions.on("click", "#addAnswer", function (e) {
     var questionIndex = questions.find(".question").length;
 
     var template2 =
-        '<div class="row" id="AnswQuest' + selectedIndex + '">' +
-        '<div class="form-group answer ps-4 ">' +
+        '<div class="row " id="AnswQuest' + selectedIndex + '">' +
+        '<div class="form-group answer d-flex flex-column align-items-center">' +
         '<div class="input-group" id="inp' + selectedIndexId + '">' +
         '<input type="radio" value="' + answerIndex + '" name="' + selectedIndexId + '"/>' +
         '<input name="Test.Questions[' + selectedIndexId + '].Answers[' + answerIndex + '].Text" id="Test.Questions[' + selectedIndexId + '].Answers[' + answerIndex + '].Text" class= "form-control" />' +
-        '<button type="button" class="btn btn-secondary remove">Remove</button>' +
+        '<button type="button" class="btn btn-secondary remove">Удалить</button>' +
         '<span asp-validation-for="Test.Questions[' + selectedIndexId + '].Answers[' + answerIndex + '].Text" class= "text-danger" ></span>' +
         '</div>' +
-        '<button type="button" class="btn btn-secondary d-flex flex-column align-items-center mt-2" id="addAnswer">Add answer</button>' +
+        '<button type="button" class="btn btn-secondary mt-2" id="addAnswer">Добавить ответ</button>' +
         '</div>' +
         '</div>';
 
@@ -85,8 +85,8 @@ questions.on('click', '.remove', function (e) {
 
 
     if (inputCount == 2) {
-        selectedQuestion.find('.form-group').append('<button type="button" class="btn btn-secondary d-flex align-items-center flex-column mt-2" id="addAnswer">Add answer</button>');
+        selectedQuestion.find('.form-group').append('<button type="button" class="btn btn-secondary  mt-2" id="addAnswer">Добавить ответ</button>');
     } else if (selectedQuestion.find('#addAnswer').attr('type') != 'button') {
-        allInput.last().append('<button type="button" class="btn btn-secondary d-flex flex-column align-items-center mt-2" id="addAnswer">Add answer</button>');
+        allInput.last().closest('.form-group').append('<button type="button" class="btn btn-secondary  mt-2" id="addAnswer">Добавить ответ</button>');
     }
 });

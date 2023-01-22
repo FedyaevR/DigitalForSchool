@@ -9,7 +9,7 @@
 @if (Model.Test == null)
 {
     <h3>Тест уже добавлен</h3>
-    <h4><a asp-page="Edit" class="btn btn-primary">Редактировать тест</a></h4>
+    <h4><a asp-page="/Admin/Subjects/Tests/EditTest" asp-route-id="@Model.Id" class="btn btn-primary">Редактировать тест</a></h4>
 }
 else
 {
@@ -41,17 +41,28 @@ else
                         </div>
                     </div>
                     <div class="answers">
-                        @foreach (var answer in Model.Test.Questions[i].Answers)
+                        @for (int j = 0; j < Model.Test.Questions[i].Answers.Count; j++)
                         {
-                            <div class="row" id="AnswQuest @i">
-                                <div class="form-group answer  ps-4">
-                                    <label asp-for="@answer">Ответы </label>
-                                    <div class="input-group" id="inp+@i">
-                                        <input type="radio" name="@i" value="true" />
-                                        <input asp-for="@answer.Text" class="form-control" />
+
+                            <div class="row " id="AnswQuest @i">
+                                <div class="form-group answer d-flex flex-column align-items-center">
+                                    <div class="input-group" id="inp@(i)">
+                                        @if (Model.Test.Questions[i].Answers[j].IsRight == true)
+                                        {
+                                            <input type="radio" value="@j" name="@i" checked />
+                                        }
+                                        else
+                                        {
+                                            <input type="radio" value="@j" name="@i" />
+                                        }
+                                        <input name="Test.Questions[@i].Answers[@j].Text" id="Test.Questions[@i].Answers[@j].Text" value="@Model.Test.Questions[i].Answers[j].Text" class="form-control" />
                                         <button type="button" class="btn btn-secondary remove">Удалить</button>
-                                        <span asp-validation-for="@answer.Text" class="text-danger"></span>
+                                        <span asp-validation-for="@Model.Test.Questions[i].Answers[j].Text" class="text-danger"></span>
                                     </div>
+                                    @if (Model.Test.Questions[i].Answers[j] == Model.Test.Questions[i].Answers.Last())
+                                    {
+                                        <button type="button" class="btn btn-secondary mt-2" id="addAnswer">Добавить ответ</button>
+                                    }
                                 </div>
                             </div>
                         }
