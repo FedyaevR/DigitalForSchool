@@ -35,6 +35,8 @@
                     var lesson = Model.Input.Lessons[i];
                         <tr>
                             <td>
+                                <input type="hidden" asp-for="Input.Lessons[i].Id">
+                                <input type="hidden" asp-for="Input.Lessons[i].TestId">
                                 <input asp-for="Input.Lessons[i].Name" />
                                 <span asp-validation-for="Input.Lessons[i].Name" class="text-danger"></span>
                             </td>

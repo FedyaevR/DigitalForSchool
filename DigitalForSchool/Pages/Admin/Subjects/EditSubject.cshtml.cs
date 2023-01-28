@@ -23,20 +23,21 @@ namespace DigitalForSchool.Pages.Admin.Subjects
         }
         public async Task<IActionResult> OnPost()
         {
+            if (ModelState.IsValid == true)
+            {
+
+                var res = await _service.EditSubject(Input);
+
+                if (res != true)
+                {
+                    ModelState.AddModelError(string.Empty, "Такой предмета не существует");
+                    return Page();
+                }
+                return RedirectToPage("SubjectsPanel");
+            }
             try
             {
-                if (ModelState.IsValid == true)
-                {
-
-                    var res = await _service.EditSubject(Input);
-
-                    if (res != true)
-                    {
-                        ModelState.AddModelError(string.Empty, "Такой предмета не существует");
-                        return Page();
-                    }
-                    return RedirectToPage("SubjectsPanel");
-                }
+               
             }
             catch (System.Exception)
             {

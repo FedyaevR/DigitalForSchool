@@ -6,9 +6,9 @@ $("#addLesson").click(function () {
         '<td><input name="Input.Lessons[' + rowNo + '].Name" id="Lessons_' + rowNo + 'Name" /></td>' +
         '<td><textarea name="Input.Lessons[' + rowNo + '].Description" id="Lessons_' + rowNo + 'Description"></textarea></td>' +
         '<td><input type="url" name="Input.Lessons[' + rowNo + '].VideoURL" id="Lessons_' + rowNo + 'VideoURL"/></td>' +
-        '<td><input name="Input.Lessons[' + rowNo + '].VideoName" id="Lessons_' + rowNo + 'VideoName"/></td>'+
-        '<td><input name="Input.Lessons[' + rowNo + '].Presentation" id="Lessons_' + rowNo + 'Presentation"/></td>'+
-        '<td><button class="btn btn-secondary remove">Remove</btn>' + '</td>' +
+        '<td><input name="Input.Lessons[' + rowNo + '].VideoName" id="Lessons_' + rowNo + 'VideoName"/></td>' +
+        '<td><input type="file" accept=".pdf" id="Upload['+rowNo+']" name="Upload['+ rowNo +']" /></td>'+
+        '<td><button class="btn btn-secondary remove">Remove</button>'+'</td>' +
         '</tr>';
     lessons.append(template);
 });

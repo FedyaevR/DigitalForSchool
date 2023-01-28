@@ -13,6 +13,7 @@ namespace DigitalForSchool.Models
         public string Patronymic { get; set; }
         [Required(ErrorMessage = "Введите название учебного учреждения"), DisplayName("Учебное учреждение")]
         public string SchoolName { get; set; }
+        public string BirthdayDate { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
 

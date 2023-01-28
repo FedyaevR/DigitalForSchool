@@ -13,5 +13,5 @@
     <p>@Model.Lesson.Description</p>
 </div>
 <div class="row">
-    <a asp-page="#" class="btn btn-primary">Тест</a><a asp-page="#" class="btn btn-primary">Презентация</a>
+    <a asp-page="/User/Test" asp-route-id="@Model.Id" class="btn btn-primary">Тест</a><a href="@Model.Lesson.Presentation" target="pdf-frame" class="btn btn-primary">Презентация</a>
 </div>

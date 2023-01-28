@@ -4,7 +4,7 @@
     Layout = "_Layout";
     ViewData["Title"] = "Создание нового предмета";
 }
-
+@*Добавить валидацию для добавления презентации*@
 <form method="post" class="form-horizontal" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly"></div>
 
@@ -50,7 +50,7 @@
                             <span asp-validation-for="Input.Lessons[i].VideoName" class="text-danger"></span>
                         </td>
                         <td>
-                            <input  asp-for="Input.Lessons[i].Presentation"/>
+                            <input type="file" accept=".pdf" id="@Model.Input.Lessons[i].Presentation" name="@Model.Input.Lessons[i].Presentation" />
                             <span asp-validation-for="Input.Lessons[i].Presentation" class="text-danger"></span>
                         </td>
                         <td>
@@ -70,5 +70,5 @@
 </form>
 
 @section Scripts{
-    <script src="~/js/addLesson.js"></script>
+    <script src="~/js/addLesson.js" asp-append-version="true"></script>
 }

@@ -91,3 +91,5 @@ C:\ASP.NET Core\DigitalForSchool\DigitalForSchool\obj\Debug\net5.0\Razor\Pages\A
 C:\ASP.NET Core\DigitalForSchool\DigitalForSchool\obj\Debug\net5.0\Razor\Pages\Admin\Subjects\EditSubject.cshtml.g.cs
 C:\ASP.NET Core\DigitalForSchool\DigitalForSchool\obj\Debug\net5.0\Razor\Pages\User\SubjectSelect.cshtml.g.cs
 C:\ASP.NET Core\DigitalForSchool\DigitalForSchool\obj\Debug\net5.0\Razor\Pages\User\Lesson.cshtml.g.cs
+C:\ASP.NET Core\DigitalForSchool\DigitalForSchool\obj\Debug\net5.0\Razor\Pages\User\Test.cshtml.g.cs
+C:\ASP.NET Core\DigitalForSchool\DigitalForSchool\obj\Debug\net5.0\Razor\Pages\User\TestResult.cshtml.g.cs

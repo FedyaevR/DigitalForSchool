@@ -21,7 +21,8 @@ namespace DigitalForSchool.Models
                 Login = Login,
                 Password = Password,
                 Subjects = Subjects.Select(s => s.ToSubject()).ToList(),
-                Ranks = Ranks
+                Ranks = Ranks,
+                BirthdayDate = BirthdayDate
             };  
         }
     }

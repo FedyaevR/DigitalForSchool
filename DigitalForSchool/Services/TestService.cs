@@ -1,6 +1,7 @@
 ﻿using DigitalForSchool.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
@@ -44,9 +45,14 @@ namespace DigitalForSchool.Services
         public Test GetTest(int? id)
         {
             
-             var res = _context.Tests.Include(t => t.Questions).ThenInclude(q => q.Answers).Where(t => t.Id == id);
+            var res = _context.Tests.Include(t => t.Questions).ThenInclude(q => q.Answers).Where(t => t.Id == id);
 
             return res.FirstOrDefault();
+        }
+        public async Task<List<Question>> GetQuestions(int id)
+        {
+            var lesson = _context.Lessons.Include(t => t.Test).ThenInclude(q => q.Questions).ThenInclude(a => a.Answers).Where(l => l.Id == id).FirstOrDefault();
+            return lesson.Test.Questions.ToList();
         }
     }
 }

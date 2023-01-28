@@ -36,7 +36,42 @@ namespace DigitalForSchool.Services
 
             var subjectSource = _context.Subjects.Include(l => l.Lessons).Where(s => s.Id == subject.Id).FirstOrDefault();
             subjectSource.Name = subject.Name;
-            subjectSource.Lessons = subject.Lessons;
+            if(subjectSource.Lessons.Count > subject.Lessons.Count)
+            {
+                for (int i =0; i<  subjectSource.Lessons.Count; i++)
+                {
+                    var item = subjectSource.Lessons[i];
+                    if (subject.Lessons.FirstOrDefault(l => l.Id == item.Id) == null)
+                    {
+                        _context.Lessons.Remove(subjectSource.Lessons.FirstOrDefault(l => l.Id == item.Id));
+                        subjectSource.Lessons.Remove(item);
+
+                    }
+                }
+            }
+            foreach (var item in subjectSource.Lessons)
+            {
+                var sub = subject.Lessons.Where(l => l.Id == item.Id).FirstOrDefault();
+                if(sub != null)
+                {
+                    item.Name = sub.Name;
+                    item.VideoURL = sub.VideoURL;
+                    item.Description = sub.Description;
+                    item.VideoName = sub.VideoName;
+                }
+                
+            }
+            if(subjectSource.Lessons.Count < subject.Lessons.Count)
+            {
+                foreach (var item in subject.Lessons)
+                {
+                    if(subjectSource.Lessons.FirstOrDefault(l => l.Id == item.Id) == null)
+                    {
+                        subjectSource.Lessons.Add(item);
+                    }
+                }
+            }
+         
             await _context.SaveChangesAsync();
             return true;
         }
